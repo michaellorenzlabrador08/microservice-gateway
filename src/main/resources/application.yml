@@ -1,0 +1,31 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+      #Route Mapping
+      - id: employeeService
+        uri: http://localhost:8069/
+        predicates:
+        - Path=/rest/**
+
+      #Route Mapping
+      - id: anotherService
+        uri: http://localhost:8069/
+        predicates:
+        - Path=/rest/**
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8089/eureka
+  instance:
+    hostname: localhost
+  server:
+    waitTimeInMsWhenSyncEmpty: 0    #wait time for subsequent sync
